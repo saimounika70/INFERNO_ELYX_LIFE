@@ -6,6 +6,11 @@
 
 ---
 
+## Web Application
+https://claude.ai/public/artifacts/7c0ffb41-2ad9-444a-b46d-eb36ee4aa1b0
+
+---
+
 ## 📋 Table of Contents
 - [Problem Statement](#-problem-statement)
 - [Solution Architecture](#-solution-architecture)  
