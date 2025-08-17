@@ -412,21 +412,16 @@ Member DB ← Real-time Sync → Wearable APIs
 
 ### 📋 System Architecture Diagram
 
-**Prompt for AI Image Generation Tools** *(DALL·E, Midjourney, Figma, Whimsical)*:
+`./assets/system_flowchart.png`
 
-> "Create a professional healthcare system flowchart with a warm, human-centered design. At the center: a circle labeled 'Ruby (Human Concierge)' with a friendly icon, with a small cloud labeled 'AI Assistant' underneath connected by a dotted line. Around Ruby, create 5 satellite circles connected by two-way arrows: 'Dr. Warren (Medical)' with medical cross icon, 'Advik (Analytics)' with chart icon, 'Carla (Nutrition)' with apple icon, 'Rachel (PT)' with dumbbell icon, and 'Neel (Leadership)' with star icon. On the left, a 'Member (Rohan)' icon with arrow pointing to Ruby. At the bottom, a rectangular 'Unified Data Lake' with arrows flowing from all circles. Add labels: 'Human Touch', 'AI Augmented', 'Expert Escalation', 'Personalized Care'. Use healthcare blue/green color palette with warm accent colors."
 
 ### 📱 Member Journey Timeline
 
-**Prompt for Timeline Visualization**:
-
-> "Design a horizontal timeline infographic showing 8 months of healthcare member journey. Each month should have: month number in circle, 2-3 key milestone icons (onboarding, travel, crisis, review, optimization), color-coded success metrics below (green for improvements, yellow for adaptations, red for challenges overcome), and small Ruby icon consistently present. Month 1: Setup/diagnostics, Month 2: Routine building, Month 3: Travel adaptation, Month 4: AI learning, Month 5: Crisis management, Month 6: Major review, Month 7: Predictive care, Month 8: Autonomous operation. Include progress arrows and improvement trend lines. Use modern, clean design with healthcare color palette."
+`./assets/member_timeline.png`
 
 ### 🔄 AI Decision Flow
 
-**Prompt for Decision Tree Diagram**:
-
-> "Create a decision flow diagram showing Ruby's AI-augmented triage process. Start with 'Member Message' at top, flowing to 'Ruby + AI Analysis' diamond. Three branches: 'Urgent' (red arrow to 'Immediate Expert'), 'Routine' (green arrow to 'Ruby Handles'), 'Complex' (yellow arrow to 'Expert with Context'). Each path shows specific actions and feedback loops back to 'Learning Database'. Include icons for urgency detection, sentiment analysis, and pattern recognition. Add side panel showing 'AI Tools: NLP, Pattern Recognition, Predictive Modeling'. Use flowchart symbols with modern, tech-forward styling."
+`./assets/ai_decision_flow.png`
 
 ---
 
