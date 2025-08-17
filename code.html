@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elyx Member Journey - Rohan Patel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .member-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto;
+        }
+
+        .member-details h1 {
+            font-size: 32px;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .member-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .current-status {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #4f46e5, #7c3aed);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4f46e5;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+        }
+
+        .timeline-date {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+        .status-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .status-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .status-title {
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-completed {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .communication-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .chat-container {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .chat-message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .elyx-avatar {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+        }
+
+        .member-avatar-small {
+            background: linear-gradient(45deg, #059669, #0d9488);
+        }
+
+        .message-content {
+            flex-grow: 1;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .message-sender {
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .message-text {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 12px 16px;
+            border-radius: 15px;
+            color: #374151;
+            line-height: 1.5;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .decision-tracker {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .decision-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-left: 4px solid #4f46e5;
+        }
+
+        .decision-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .decision-title {
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .decision-date {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .decision-rationale {
+            color: #4b5563;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .decision-source {
+            font-size: 12px;
+            color: #7c3aed;
+            font-style: italic;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            color: #4f46e5;
+            border-bottom-color: #4f46e5;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .chat-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            background: transparent;
+            color: #4f46e5;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #4f46e5;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .member-info {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .member-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="member-info">
+                <div class="member-avatar">RP</div>
+                <div class="member-details">
+                    <h1>Rohan Patel</h1>
+                    <p><strong>Age:</strong> 46 | <strong>Location:</strong> Singapore</p>
+                    <p><strong>Occupation:</strong> Regional Head of Sales, FinTech</p>
+                    <p><strong>Member Since:</strong> March 2025 | <strong>Journey Day:</strong> <span id="current-day">142</span></p>
+                </div>
+            </div>
+            <div class="member-stats">
+                <div class="stat-card">
+                    <div class="stat-value">8.2</div>
+                    <div class="stat-label">Current Health Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">43.2</div>
+                    <div class="stat-label">Biological Age</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">89%</div>
+                    <div class="stat-label">Plan Adherence</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">127</div>
+                    <div class="stat-label">Active Days</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="timeline-section">
+                <div class="section-title">
+                    📅 Journey Timeline
+                </div>
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="switchTab('timeline')">Timeline</button>
+                    <button class="nav-tab" onclick="switchTab('communications')">Communications</button>
+                    <button class="nav-tab" onclick="switchTab('decisions')">Decision Tracker</button>
+                </div>
+                
+                <div id="timeline" class="tab-content active">
+                    <div class="timeline" id="timeline-container">
+                        <!-- Timeline items will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div id="communications" class="tab-content">
+                    <div class="chat-filter">
+                        <button class="filter-btn active" onclick="filterMessages('all')">All</button>
+                        <button class="filter-btn" onclick="filterMessages('ruby')">Ruby</button>
+                        <button class="filter-btn" onclick="filterMessages('dr-warren')">Dr. Warren</button>
+                        <button class="filter-btn" onclick="filterMessages('carla')">Carla</button>
+                        <button class="filter-btn" onclick="filterMessages('rachel')">Rachel</button>
+                    </div>
+                    <div class="chat-container" id="chat-container">
+                        <!-- Chat messages will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div id="decisions" class="tab-content">
+                    <div id="decision-container">
+                        <!-- Decision tracking items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="current-status">
+                <div class="section-title">
+                    📊 Current Status
+                </div>
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Active Interventions</div>
+                            <div class="status-badge status-active">3 Active</div>
+                        </div>
+                        <p>• Cardiovascular training protocol<br>
+                        • Mediterranean diet + supplements<br>
+                        • Stress management techniques</p>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Next Diagnostic</div>
+                            <div class="status-badge status-pending">Due Sep 15</div>
+                        </div>
+                        <p>3-month comprehensive blood panel including lipid profile, inflammatory markers, and hormone levels.</p>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Travel Status</div>
+                            <div class="status-badge status-active">UK Trip</div>
+                        </div>
+                        <p>Currently traveling (Aug 12-18). Modified exercise plan activated. Virtual check-ins scheduled.</p>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Key Metrics Trend</div>
+                            <div class="status-badge status-completed">Improving</div>
+                        </div>
+                        <p>• Cholesterol: ↓ 15%<br>
+                        • Sleep quality: ↑ 23%<br>
+                        • HRV: ↑ 18%</p>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">12.4hrs</div>
+                        <div class="metric-label">Dr. Warren Consultations</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">28.7hrs</div>
+                        <div class="metric-label">Coach Time Invested</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">156</div>
+                        <div class="metric-label">Messages Exchanged</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for timeline, communications, and decisions
+        const timelineData = [
+            {
+                date: "Aug 17, 2025",
+                title: "Travel Adaptation Successful",
+                description: "Rohan successfully maintained 80% of his routine during UK business trip. HRV remained stable despite jet lag.",
+                type: "milestone"
+            },
+            {
+                date: "Aug 10, 2025",
+                title: "Nutrition Plan Adjustment",
+                description: "Carla updated meal plan based on CGM data showing post-lunch glucose spikes. New protocol showing 25% improvement.",
+                type: "intervention"
+            },
+            {
+                date: "Aug 5, 2025",
+                title: "Exercise Protocol Updated",
+                description: "Rachel modified strength training based on movement screening results. Focus on core stability and mobility.",
+                type: "intervention"
+            },
+            {
+                date: "Jul 28, 2025",
+                title: "Mid-Journey Health Review",
+                description: "Comprehensive review with Dr. Warren. Significant improvement in cardiovascular markers. Biological age reduced by 2.8 years.",
+                type: "diagnostic"
+            },
+            {
+                date: "Jul 15, 2025",
+                title: "Blood Panel Results",
+                description: "Second diagnostic test panel completed. LDL cholesterol down 18%, inflammatory markers improved significantly.",
+                type: "diagnostic"
+            },
+            {
+                date: "Jun 30, 2025",
+                title: "Sleep Optimization Success",
+                description: "Advik's sleep protocol showing excellent results. Average sleep quality improved from 6.2 to 8.1 over 30 days.",
+                type: "milestone"
+            },
+            {
+                date: "Jun 15, 2025",
+                title: "Stress Management Protocol",
+                description: "Implemented breathing techniques and meditation based on consistently elevated cortisol readings.",
+                type: "intervention"
+            },
+            {
+                date: "May 20, 2025",
+                title: "Initial Diagnostic Complete",
+                description: "First comprehensive diagnostic panel completed. Identified elevated cholesterol and stress markers as primary focus areas.",
+                type: "diagnostic"
+            },
+            {
+                date: "Mar 15, 2025",
+                title: "Welcome to Elyx",
+                description: "Rohan joined Elyx program. Initial consultation with Dr. Warren completed. Personalized journey plan created.",
+                type: "onboarding"
+            }
+        ];
+
+        const communicationData = [
+            {
+                sender: "Ruby",
+                avatar: "R",
+                time: "2 hours ago",
+                message: "Hi Rohan! Hope your UK meetings are going well. Quick reminder that your virtual check-in with Dr. Warren is scheduled for tomorrow at 9 AM Singapore time (2 AM UK). Should work with your schedule right?",
+                type: "ruby"
+            },
+            {
+                sender: "Rohan",
+                avatar: "RP",
+                time: "1 hour ago", 
+                message: "Thanks Ruby! Yes, that works perfectly. I'll be in my hotel room. Can we also discuss the sleep data? My Garmin is showing some interesting patterns with the time zone changes.",
+                type: "member"
+            },
+            {
+                sender: "Advik",
+                avatar: "A",
+                time: "45 minutes ago",
+                message: "I've been monitoring your sleep data during travel, Rohan. Your HRV adaptation is actually quite impressive - much better than your last UK trip in June. The breathing exercises seem to be helping with jet lag recovery. I'll prepare a detailed analysis for tomorrow's call.",
+                type: "advik"
+            },
+            {
+                sender: "Carla",
+                avatar: "C", 
+                time: "6 hours ago",
+                message: "Rohan, I noticed from your food log that you had the hotel breakfast buffet yesterday. The CGM data shows a glucose spike to 180 mg/dL. For tomorrow, try the suggestions I sent via Ruby - Greek yogurt with nuts instead of the pastries. Your post-meal readings have been excellent otherwise!",
+                type: "carla"
+            },
+            {
+                sender: "Dr. Warren",
+                avatar: "DW",
+                time: "Yesterday",
+                message: "Excellent progress on your cardiovascular markers, Rohan. Your latest lipid panel shows LDL at 98 mg/dL - down from 126 at baseline. The combination of exercise, nutrition optimization, and stress management is clearly working. Let's discuss tomorrow whether we can reduce the statin dosage.",
+                type: "dr-warren"
+            }
+        ];
+
+        const decisionData = [
+            {
+                title: "Statin Dosage Adjustment",
+                date: "Jul 28, 2025",
+                rationale: "Based on 15% reduction in LDL cholesterol and improved lifestyle factors, Dr. Warren recommended reducing atorvastatin from 20mg to 10mg daily to minimize side effects while maintaining cardiovascular protection.",
+                source: "Triggered by 3-month blood panel results showing LDL: 102 mg/dL (down from 126 mg/dL)"
+            },
+            {
+                title: "Sleep Optimization Protocol",
+                date: "Jun 20, 2025", 
+                rationale: "Advik identified consistent sleep fragmentation and low HRV recovery scores. Implemented targeted sleep hygiene protocol including blue light management, room temperature optimization, and breathing techniques.",
+                source: "Triggered by member complaint about fatigue and Garmin data showing poor sleep scores"
+            },
+            {
+                title: "Mediterranean Diet Adoption",
+                date: "May 25, 2025",
+                rationale: "Carla recommended Mediterranean diet based on genetic testing showing ApoE4 variant (increased Alzheimer's risk) and elevated inflammatory markers. Diet proven effective for cardiovascular health and neuroprotection.",
+                source: "Triggered by genetic test results and baseline inflammatory markers (CRP: 3.2 mg/L)"
+            },
+            {
+                title: "Comprehensive Cardiac Screening",
+                date: "Apr 15, 2025",
+                rationale: "Dr. Warren ordered coronary calcium score and advanced lipid testing due to strong family history of early heart disease (father had MI at 52) and member's primary health concern about cardiovascular risk.",
+                source: "Triggered by family history discussion during initial consultation"
+            }
+        ];
+
+        // Populate timeline
+        function populateTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = '';
+            
+            timelineData.forEach(item => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
+                timelineItem.innerHTML = `
+                    <div class="timeline-date">${item.date}</div>
+                    <div class="timeline-title">${item.title}</div>
+                    <div class="timeline-description">${item.description}</div>
+                `;
+                container.appendChild(timelineItem);
+            });
+        }
+
+        // Populate communications
+        function populateCommunications() {
+            const container = document.getElementById('chat-container');
+            container.innerHTML = '';
+            
+            communicationData.forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message';
+                messageDiv.setAttribute('data-type', message.type);
+                
+                const avatarClass = message.type === 'member' ? 'member-avatar-small' : 'elyx-avatar';
+                
+                messageDiv.innerHTML = `
+                    <div class="message-avatar ${avatarClass}">${message.avatar}</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-sender">${message.sender}</span>
+                            <span class="message-time">${message.time}</span>
+                        </div>
+                        <div class="message-text">${message.message}</div>
+                    </div>
+                `;
+                container.appendChild(messageDiv);
+            });
+        }
+
+        // Populate decisions
+        function populateDecisions() {
+            const container = document.getElementById('decision-container');
+            container.innerHTML = '';
+            
+            decisionData.forEach(decision => {
+                const decisionDiv = document.createElement('div');
+                decisionDiv.className = 'decision-item';
+                decisionDiv.innerHTML = `
+                    <div class="decision-header">
+                        <div>
+                            <div class="decision-title">${decision.title}</div>
+                            <div class="decision-date">${decision.date}</div>
+                        </div>
+                    </div>
+                    <div class="decision-rationale">${decision.rationale}</div>
+                    <div class="decision-source"><strong>Source:</strong> ${decision.source}</div>
+                `;
+                container.appendChild(decisionDiv);
+            });
+        }
+
+        // Switch tabs
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Filter messages
+        function filterMessages(type) {
+            const messages = document.querySelectorAll('.chat-message');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter messages
+            messages.forEach(message => {
+                if (type === 'all' || message.getAttribute('data-type') === type) {
+                    message.style.display = 'flex';
+                } else {
+                    message.style.display = 'none';
+                }
+            });
+        }
+
+        // Update current day
+        function updateCurrentDay() {
+            const startDate = new Date('2025-03-15');
+            const currentDate = new Date();
+            const diffTime = Math.abs(currentDate - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('current-day').textContent = diffDays;
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            populateTimeline();
+            populateCommunications();
+            populateDecisions();
+            updateCurrentDay();
+        });
+    </script>
+</body>
+</html>
